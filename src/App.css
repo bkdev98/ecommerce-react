@@ -1,3 +1,9 @@
+@import url('https://fonts.googleapis.com/css?family=Josefin+Sans:400,600');
+
+h1 {
+  font-family: 'Josefin Sans', sans-serif;
+}
+
 .App {
   text-align: center;
 }
@@ -29,4 +35,10 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.clearfix::after, .clearfix::before {
+  content: '';
+  clear: both;
+  display: table;
 }
