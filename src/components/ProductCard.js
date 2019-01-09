@@ -26,8 +26,8 @@ class ProductCard extends Component {
           <Discount value={Math.round(this.props.salePrice * 100 / this.props.price)} />
         </div>
         <h3>{this.props.name}</h3>
-        <span style={{ textDecoration: 'line-through' }}>{this.props.price}₫</span>
-        <span style={{ fontWeight: 'bold', color: '#16ACCF', marginLeft: 6, fontSize: 18 }}>{this.props.salePrice}₫</span>
+        <span style={{ textDecoration: 'line-through' }}>{this.props.price.toLocaleString()}₫</span>
+        <span style={{ fontWeight: 'bold', color: '#16ACCF', marginLeft: 6, fontSize: 18 }}>{this.props.salePrice.toLocaleString()}₫</span>
       </div>
     )
   }
