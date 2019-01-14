@@ -18,21 +18,6 @@ class Home extends Component {
       salePrice: 0,
       price: 0,
     },
-    productData: [
-      {
-        id: 1,
-        name: 'Ví Ribbon Hồng',
-        image: 'https://images.leflair.vn/w380/q85/5833eb305d82971000b5428e.jpg',
-        salePrice: 1289000,
-        price: 2599000,
-      }, {
-        id: 2,
-        name: 'Túi Mini Crossbody Bolivia',
-        image: 'https://images.leflair.vn/w380/q85/58636e5b9194480100a4ca05.jpg',
-        salePrice: 1959000,
-        price: 3859000,
-      },
-    ],
   }
 
   handleInputChange = (type, value) => {
@@ -47,9 +32,9 @@ class Home extends Component {
   handleSubmit = event => {
     // Prevent form from reload page
     event.preventDefault();
-    const { formFields, productData } = this.state;
+    const { formFields } = this.state;
+    this.props.onAddProduct(formFields);
     this.setState({
-      productData: [...productData, {...formFields, id: productData.length + 1}],
       showModal: false,
       formFields: {
         name: '',
@@ -61,7 +46,9 @@ class Home extends Component {
   }
 
   render() {
-    const { productData, searchValue, showModal, formFields } = this.state;
+    const { searchValue, showModal, formFields } = this.state;
+    const { productData } = this.props;
+
     const data = productData
       .filter(item => item.name.includes(searchValue));
 
@@ -78,6 +65,7 @@ class Home extends Component {
           ? data.map(item => (
             <ProductCard
               key={item.id}
+              id={item.id}
               name={item.name}
               image={item.image}
               salePrice={item.salePrice}
