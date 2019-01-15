@@ -5,6 +5,7 @@ import Header from './components/Header';
 import AboutPage from './pages/About';
 import HomePage from './pages/Home';
 import ProductPage from './pages/Product';
+import Checkout from './pages/Checkout';
 import Cart from './components/Cart';
 
 // Stateful component
@@ -66,6 +67,7 @@ class App extends Component {
           <Route path='/' exact component={props => <HomePage productData={productData} onAddProduct={this.handleAddProduct} {...props} />} />
           <Route path='/about' component={AboutPage} />
           <Route path='/product/:id' component={props => <ProductPage productData={productData} onAddToCart={this.handleAddToCart} {...props} />} />
+          <Route path='/checkout' component={props => <Checkout cartData={cartData} {...props} />} />
         </div>
       </Router>
     );

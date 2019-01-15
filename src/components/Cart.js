@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { FiX } from 'react-icons/fi';
+import { withRouter } from 'react-router-dom';
 
 import { BigButton } from '../pages/Product';
 
@@ -46,23 +47,23 @@ const Content = styled.div`
   overflow: scroll;
 `;
 
-const CartItem = styled.div`
+export const CartItem = styled.div`
   border-bottom: 1px solid #CCC;
   padding: 15px 0px;
   display: flex;
 `;
 
-const CartImage = styled.img`
+export const CartImage = styled.img`
   width: 24%;
   height: 100%;
 `;
 
-const CartContent = styled.div`
+export const CartContent = styled.div`
   width: 76%;
   padding-left: 15px;
 `;
 
-const calcTotal = data => {
+export const calcTotal = data => {
   let total = 0;
   data.forEach(item => total += (item.product.salePrice * item.quantity));
   return total;
@@ -119,10 +120,15 @@ const Cart = (props) => props.open && (
             {calcTotal(props.cartData).toLocaleString()}₫
           </h3>
         </div>
-        <BigButton style={{ width: '100%', marginTop: 10 }}>Tiến hành Đặt hàng</BigButton>
+        <BigButton
+          onClick={() => props.history.push('/checkout') || props.onClose()}
+          style={{ width: '100%', marginTop: 10 }}
+        >
+          Tiến hành Đặt hàng
+        </BigButton>
       </Content>
     </Wrapper>
   </Overlay>
 );
 
-export default Cart;
+export default withRouter(Cart);
