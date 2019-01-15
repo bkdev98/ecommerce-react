@@ -8,6 +8,8 @@ import ProductPage from './pages/Product';
 import Checkout from './pages/Checkout';
 import Cart from './components/Cart';
 
+const CART_KEY = 'cart-data-ecommerce';
+
 // Stateful component
 class App extends Component {
   state = {
@@ -30,25 +32,33 @@ class App extends Component {
     ],
   }
 
+  componentDidMount = () => {
+    const cartData = localStorage.getItem(CART_KEY);
+    if (cartData) {
+      console.log('Get data from localStorage then set state');
+      this.setState({ cartData: JSON.parse(cartData) });
+    }
+  }
+
   handleAddProduct = product => this.setState(state => ({
     productData: [...state.productData, {...product, id: state.productData.length + 1}],
-  }))
-
-  handleAddToCart = product => this.setState(state => ({
-    cartData: [...state.cartData, {quantity: 1, product, id: state.cartData.length + 1}],
   }))
 
   handleToggleCart = () => this.setState(state => ({
     openCart: !state.openCart,
   }))
 
+  handleAddToCart = product => this.setState(state => ({
+    cartData: [...state.cartData, {quantity: 1, product, id: state.cartData.length + 1}],
+  }), () => localStorage.setItem(CART_KEY, JSON.stringify(this.state.cartData)));
+
   handleRemoveFromCart = id => this.setState(state => ({
     cartData: state.cartData.filter(item => item.id !== id),
-  }))
+  }), () => localStorage.setItem(CART_KEY, JSON.stringify(this.state.cartData)))
 
   handleUpdateQuantity = (id, quantity) => this.setState(state => ({
     cartData: state.cartData.map(item => item.id !== id ? item : { ...item, quantity }),
-  }))
+  }), () => localStorage.setItem(CART_KEY, JSON.stringify(this.state.cartData)))
 
   render() {
     const { productData, cartData, openCart } = this.state;
