@@ -16,13 +16,13 @@ class App extends Component {
       {
         id: 1,
         name: 'Ví Ribbon Hồng',
-        image: 'https://images.leflair.vn/w380/q85/5833eb305d82971000b5428e.jpg',
+        image: 'https://images.leflair.vn/w1350/q85/5b03f12b713cd300019ed17d.jpg',
         salePrice: 1289000,
         price: 2599000,
       }, {
         id: 2,
-        name: 'Túi Mini Crossbody Bolivia',
-        image: 'https://images.leflair.vn/w380/q85/58636e5b9194480100a4ca05.jpg',
+        name: 'Đầm Maxi Frill Shoulder',
+        image: 'https://images.leflair.vn/w1350/q85/5b03f323713cd300019ed19e.jpg',
         salePrice: 1959000,
         price: 3859000,
       },

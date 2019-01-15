@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
 
 import Wrapper from '../components/Wrapper';
@@ -31,30 +31,64 @@ export const BigButton = styled.button`
   transition: 0.15s ease-in-out;
 `;
 
-const Product = ({ match, productData, onAddToCart }) => {
-  const product = productData.find(item => item.id.toString() === match.params.id);
+const Figure = styled.figure`
+  width: 100%;
+  margin: 0;
+  background-repeat: no-repeat;
+  :hover {
+    img {
+      opacity: 0;
+    }
+  }
+  img {
+    display: block;
+    width: 100%;
+    pointer-events: none;
+  }
+`;
 
-  if (!match.params.id || !product) {
+class Product extends Component {
+  state = {
+    backgroundPosition: '0% 0%',
+  }
+
+  handleMouseMove = e => {
+    const { left, top, width, height } = e.target.getBoundingClientRect();
+    const x = (e.pageX - left) / width * 100;
+    const y = (e.pageY - top) / height * 100;
+    this.setState({ backgroundPosition: `${x}% ${y}%` });
+  }
+
+  render() {
+    const { match, productData, onAddToCart } = this.props;
+    const { backgroundPosition } = this.state;
+
+    const product = productData.find(item => item.id.toString() === match.params.id);
+
+    if (!match.params.id || !product) {
+      return (
+        <Wrapper>
+          <span>Không tìm thấy sản phẩm</span>
+        </Wrapper>
+      );
+    }
+
     return (
       <Wrapper>
-        <span>Không tìm thấy sản phẩm</span>
+        <Column>
+          <Figure style={{ backgroundPosition, backgroundImage: `url(${product.image})` }} onMouseMove={this.handleMouseMove}>
+            <img src={product.image} alt={product.name} />
+          </Figure>
+        </Column>
+        <Column>
+          <h1 style={{ fontSize: 26 }}>{product.name}</h1>
+          <span style={{ textDecoration: 'line-through', fontSize: 20 }}>{product.price.toLocaleString()}₫</span>
+          <span style={{ fontWeight: 'bold', color: '#16ACCF', marginLeft: 6, fontSize: 24 }}>{product.salePrice.toLocaleString()}₫</span>
+          <BigButton onClick={() => onAddToCart(product)}>Thêm vào Giỏ hàng</BigButton>
+        </Column>
       </Wrapper>
     );
   }
-
-  return (
-    <Wrapper>
-      <Column>
-        <img style={{ width: '100%' }} src={product.image} alt={product.name} />
-      </Column>
-      <Column>
-        <h1 style={{ fontSize: 26 }}>{product.name}</h1>
-        <span style={{ textDecoration: 'line-through', fontSize: 20 }}>{product.price.toLocaleString()}₫</span>
-        <span style={{ fontWeight: 'bold', color: '#16ACCF', marginLeft: 6, fontSize: 24 }}>{product.salePrice.toLocaleString()}₫</span>
-        <BigButton onClick={() => onAddToCart(product)}>Thêm vào Giỏ hàng</BigButton>
-      </Column>
-    </Wrapper>
-  );
 }
 
 export default Product;
