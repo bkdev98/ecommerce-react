@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Row, Col } from 'react-flexbox-grid';
 
 import '../App.css';
 
@@ -61,19 +62,22 @@ class Home extends Component {
           onChange={event => this.setState({ searchValue: event.target.value })}
         />
         <br />
-        {data.length
-          ? data.map(item => (
-            <ProductCard
-              key={item.id}
-              id={item.id}
-              name={item.name}
-              image={item.image}
-              salePrice={item.salePrice}
-              price={item.price}
-            />
-          ))
-          : <span>Không tìm thấy sản phẩm</span>
-        }
+        <Row>
+          {data.length
+            ? data.map(item => (
+              <Col key={item.id} lg={4} sm={6} xs={12}>
+                <ProductCard
+                  id={item.id}
+                  name={item.name}
+                  image={item.image}
+                  salePrice={item.salePrice}
+                  price={item.price}
+                />
+              </Col>
+            ))
+            : <span>Không tìm thấy sản phẩm</span>
+          }
+        </Row>
         <Button style={{ margin: '20px 0' }} onClick={() => this.setState({ showModal: true })}>Tạo mới</Button>
         <Modal
           title='Tạo mới sản phẩm'

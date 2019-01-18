@@ -22,7 +22,7 @@ class ProductCard extends Component {
   render() {
     return (
       <Link to={'/product/' + this.props.id}>
-        <div style={{ display: 'inline-block', width: '30%', marginRight: 15, marginBottom: 15 }}>
+        <div style={{ display: 'inline-block', width: '100%', marginRight: 15, marginBottom: 15 }}>
           <div style={{ position: 'relative' }}>
             <img src={this.props.image} alt={this.props.name} style={{ width: '100%' }} />
             <Discount value={Math.round(this.props.salePrice * 100 / this.props.price)} />

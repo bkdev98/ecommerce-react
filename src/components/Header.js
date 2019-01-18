@@ -30,6 +30,7 @@ const CartButton = styled.button`
   cursor: pointer;
   float: right;
   position: relative;
+  background: transparent;
 `;
 
 const Badge = styled.span`

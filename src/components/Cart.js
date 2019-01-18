@@ -11,6 +11,7 @@ const Overlay = styled.div`
   height: 100%;
   top: 0;
   left: 0;
+  z-index: 999;
   background: rgba(0,0,0,0.1);
 `;
 
@@ -19,6 +20,9 @@ const Wrapper = styled.div`
   background: white;
   float: right;
   height: 100%;
+  @media only screen and (max-width: 450px) {
+    width: 100%;
+  }
 `;
 
 const Header = styled.div`

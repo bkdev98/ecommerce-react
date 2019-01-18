@@ -1,13 +1,8 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import { Row, Col } from 'react-flexbox-grid';
 
 import Wrapper from '../components/Wrapper';
-
-const Column = styled.div`
-  float: left;
-  width: calc(50% - 25px);
-  margin-right: 25px;
-`;
 
 export const BigButton = styled.button`
   width: 90%;
@@ -75,17 +70,19 @@ class Product extends Component {
 
     return (
       <Wrapper>
-        <Column>
-          <Figure style={{ backgroundPosition, backgroundImage: `url(${product.image})` }} onMouseMove={this.handleMouseMove}>
-            <img src={product.image} alt={product.name} />
-          </Figure>
-        </Column>
-        <Column>
-          <h1 style={{ fontSize: 26 }}>{product.name}</h1>
-          <span style={{ textDecoration: 'line-through', fontSize: 20 }}>{product.price.toLocaleString()}₫</span>
-          <span style={{ fontWeight: 'bold', color: '#16ACCF', marginLeft: 6, fontSize: 24 }}>{product.salePrice.toLocaleString()}₫</span>
-          <BigButton onClick={() => onAddToCart(product)}>Thêm vào Giỏ hàng</BigButton>
-        </Column>
+        <Row>
+          <Col lg={6} xs={12} style={{ paddingTop: 15 }}>
+            <Figure style={{ backgroundPosition, backgroundImage: `url(${product.image})` }} onMouseMove={this.handleMouseMove}>
+              <img src={product.image} alt={product.name} />
+            </Figure>
+          </Col>
+          <Col lg={6} xs={12} style={{ paddingTop: 15, paddingBottom: 15 }}>
+            <h1 style={{ fontSize: 26 }}>{product.name}</h1>
+            <span style={{ textDecoration: 'line-through', fontSize: 20 }}>{product.price.toLocaleString()}₫</span>
+            <span style={{ fontWeight: 'bold', color: '#16ACCF', marginLeft: 6, fontSize: 24 }}>{product.salePrice.toLocaleString()}₫</span>
+            <BigButton onClick={() => onAddToCart(product)}>Thêm vào Giỏ hàng</BigButton>
+          </Col>
+        </Row>
       </Wrapper>
     );
   }
