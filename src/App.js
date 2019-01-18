@@ -60,6 +60,10 @@ class App extends Component {
     cartData: state.cartData.map(item => item.id !== id ? item : { ...item, quantity }),
   }), () => localStorage.setItem(CART_KEY, JSON.stringify(this.state.cartData)))
 
+  handleCleanCart = () => this.setState(state => ({
+    cartData: [],
+  }), () => localStorage.setItem(CART_KEY, JSON.stringify(this.state.cartData)))
+
   render() {
     const { productData, cartData, openCart } = this.state;
 
@@ -77,7 +81,7 @@ class App extends Component {
           <Route path='/' exact component={props => <HomePage productData={productData} onAddProduct={this.handleAddProduct} {...props} />} />
           <Route path='/about' component={AboutPage} />
           <Route path='/product/:id' component={props => <ProductPage productData={productData} onAddToCart={this.handleAddToCart} {...props} />} />
-          <Route path='/checkout' component={props => <Checkout cartData={cartData} {...props} />} />
+          <Route path='/checkout' component={props => <Checkout onCleanCart={this.handleCleanCart} cartData={cartData} {...props} />} />
         </div>
       </Router>
     );
